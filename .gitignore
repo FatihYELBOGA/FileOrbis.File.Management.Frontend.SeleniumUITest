@@ -1,0 +1,42 @@
+# Visual Studio projeleri için
+.vs/
+
+# Test çıktıları
+TestResults/
+
+# Geçici dosyalar
+*.log
+*.exe
+*.dll
+*.pdb
+*.cache
+*.tmp
+
+# Son derleme / son yayınlanan dosyalar
+bin/
+obj/
+
+# Paket bağımlılıkları ve projeye özgü dosyalar
+packages/
+*.suo
+*.user
+*.bak
+*.vspscc
+*.vssscc
+*.pidb
+*.ide
+
+# .NET Core'dan proje bağımlılıkları
+## projeden oluşturulan SDK tarayıcıları
+Tools/
+## gömülü PDB dosyaları
+**/*.pdb
+## vbproje dosyası gibi user secrets
+**/*.user
+
+# Rider için
+.idea/
+*.sln.iml
+
+# VSCode için
+.vscode/
