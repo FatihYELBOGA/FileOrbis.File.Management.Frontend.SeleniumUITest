@@ -4,8 +4,6 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading;
 
 namespace FileOrbis.File.Management.Frontend.SeleniumUITest
@@ -24,6 +22,11 @@ namespace FileOrbis.File.Management.Frontend.SeleniumUITest
             login.SigninPositive();
 
             driver = login.getDriver();
+        }
+
+        public MyFileOrbis(IWebDriver driver) 
+        {
+            this.driver = driver;
         }
 
         [TestMethod]

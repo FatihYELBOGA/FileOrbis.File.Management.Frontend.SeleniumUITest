@@ -26,6 +26,11 @@ namespace FileOrbis.File.Management.Frontend.SeleniumUITest
             driver = login.getDriver();
         }
 
+        public New(IWebDriver driver)
+        {
+            this.driver = driver;
+        }
+
         [TestMethod]
         public void CreateFolderPositive()
         {
@@ -75,6 +80,12 @@ namespace FileOrbis.File.Management.Frontend.SeleniumUITest
                 Assert.AreEqual(true, rowCountAfter == rowCountBefore);
                 Assert.AreEqual(alertText, existAlert);
                 Console.WriteLine("folder is already exist");
+
+                IWebElement cancelButton = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("cancel-button")));
+                cancelButton.Click();
+
+                IWebElement cancelButton2 = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("cancel-button")));
+                cancelButton2.Click();
             }
             else
             {
@@ -155,12 +166,29 @@ namespace FileOrbis.File.Management.Frontend.SeleniumUITest
             }
 
             // New navbar
+            IWebElement trashNavbar = driver.FindElement(By.Id("Trash"));
+            trashNavbar.Click();
+            Thread.Sleep(1000);
+
+            table = driver.FindElement(By.XPath("//table"));
+            rows = table.FindElements(By.TagName("tr"));
+
+            foreach (var row in rows)
+            {
+                if (row.Text.Split(' ')[0].Equals("a.txt"))
+                {
+                    expectedText = "the file name: 'a.txt' is already exist!";
+                    break;
+                }
+            }
+
+            // New navbar
+            IWebElement home = driver.FindElement(By.Id("My FileOrbis"));
+            home.Click();
+
+            // New navbar
             IWebElement newNavbar = driver.FindElement(By.Id("new"));
             newNavbar.Click();
-
-            // New File Item of New Navbar
-            IWebElement newFolderItem = driver.FindElement(By.Id("new-file"));
-            newFolderItem.Click();
 
             // file input
             IWebElement fileInput = driver.FindElement(By.Id("file-input"));
@@ -181,6 +209,10 @@ namespace FileOrbis.File.Management.Frontend.SeleniumUITest
             if (expectedText.Equals(""))
             {
                 expectedText = "file added succesfully";
+            } else
+            {
+                IWebElement cancelButton = wait.Until(ExpectedConditions.ElementIsVisible(By.Id("cancel-button")));
+                cancelButton.Click();
             }
 
             Assert.AreEqual(alertText, expectedText);
